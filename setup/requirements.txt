@@ -1,0 +1,6 @@
+numpy
+librosa
+auto-py-to-exe
+pyinstaller==6.21.0
+PySide6-Essentials
+QtAwesome
