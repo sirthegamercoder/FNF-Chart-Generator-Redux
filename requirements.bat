@@ -1,4 +1,5 @@
 @echo off
+cd /d "%~dp0"
 echo The process has started...
 
 if not exist ".venv\Scripts\activate.bat" (
@@ -11,7 +12,7 @@ echo.
 echo Activate virtual environment
 call .venv\Scripts\activate.bat
 echo Install requirements
-pip install -r setup\requirements.txt
+pip install -r requirements.txt
 echo.
 echo Requirements has installed!
 exit /b

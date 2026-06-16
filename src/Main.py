@@ -1,4 +1,5 @@
 import sys
+import time
 import os
 import json
 import random
@@ -26,6 +27,7 @@ from PySide6.QtWidgets import (
     QScrollArea,
     QTabWidget,
     QSizePolicy,
+    QSplashScreen,
 )
 from PySide6.QtCore import (
     Qt,
@@ -37,6 +39,7 @@ from PySide6.QtCore import (
 from PySide6.QtGui import (
     QIcon,
     QPainter,
+    QPixmap,
 )
 
 import librosa
@@ -768,11 +771,11 @@ class ChartGeneratorApp(QMainWindow):
                 background-color: rgba(89, 129, 89, 0.9);
             }
             QSpinBox::up-arrow, QDoubleSpinBox::up-arrow {
-                image: url(:FNF Chart Generator Redux/src/resources/arrow-up.png);
+                image: url(:FNF-Chart-Generator-Redux/assets/ui/arrow-up.png);
                 margin: 0 auto;
             }
             QSpinBox::down-arrow, QDoubleSpinBox::down-arrow {
-                image: url(:FNF Chart Generator Redux/src/resources/arrow-down.png);
+                image: url(:FNF-Chart-Generator-Redux/assets/ui/arrow-down.png);
                 margin: 0 auto;
             }
             QProgressBar {
@@ -1833,13 +1836,32 @@ def main():
     app.setApplicationName("FNF Chart Generator Redux")
     app.setStyle("Fusion")
 
-    icon_path = resource_path("src/resources/icon.ico")
+    splash_path = resource_path("assets/app/fnfcgr-splash.png")
+    screen_splash = QPixmap(str(splash_path))
+
+    intro_screen = QSplashScreen(screen_splash)
+    intro_screen.show()
+
+    app.processEvents()
+
+    for i in range(1, 6):
+        intro_screen.showMessage(
+            f"{i*20}% loading", 
+            Qt.AlignBottom | Qt.AlignCenter, 
+            Qt.white
+        )
+        app.processEvents()
+        time.sleep(0.6)
+
+    icon_path = resource_path("assets/app/icon.ico")
 
     if os.path.exists(icon_path):
-        app.setWindowIcon(QIcon(icon_path))
+        app.setWindowIcon(QIcon(str(icon_path)))
 
     window = ChartGeneratorApp()
     window.show()
+
+    intro_screen.finish(window)
 
     sys.exit(app.exec())
 
