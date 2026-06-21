@@ -1,6 +1,6 @@
 name: Suggestion
 description: Request the feature you want
-labels: [enchancement]
+labels: [enhancement]
 body:
   - type: textarea
     id: description
