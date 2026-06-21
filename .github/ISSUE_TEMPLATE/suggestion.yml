@@ -1,0 +1,10 @@
+name: Suggestion
+description: Request the feature you want
+labels: [enchancement]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "What feature do you want?"
+    validations:
+      required: true
