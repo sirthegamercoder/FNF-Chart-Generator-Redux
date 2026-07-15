@@ -4,7 +4,7 @@ import os
 import json
 import random
 import numpy as np
-from util import resources
+from utils import resources
 from collections import OrderedDict
 
 from PySide6.QtWidgets import (
@@ -771,11 +771,11 @@ class ChartGeneratorApp(QMainWindow):
                 background-color: rgba(89, 129, 89, 0.9);
             }
             QSpinBox::up-arrow, QDoubleSpinBox::up-arrow {
-                image: url(:FNF-Chart-Generator-Redux/assets/ui/arrow-up.png);
+                image: url(:arrows/ui/arrow-up.png);
                 margin: 0 auto;
             }
             QSpinBox::down-arrow, QDoubleSpinBox::down-arrow {
-                image: url(:FNF-Chart-Generator-Redux/assets/ui/arrow-down.png);
+                image: url(:arrows/ui/arrow-down.png);
                 margin: 0 auto;
             }
             QProgressBar {
@@ -1836,8 +1836,8 @@ def main():
     app.setApplicationName("FNF Chart Generator Redux")
     app.setStyle("Fusion")
 
-    splash_path = resource_path("assets/app/fnfcgr-splash.png")
-    screen_splash = QPixmap(str(splash_path))
+    splash_path = resource_path("assets/fnfcgr-splash.png")
+    screen_splash = QPixmap(splash_path)
 
     intro_screen = QSplashScreen(screen_splash)
     intro_screen.show()
@@ -1853,10 +1853,10 @@ def main():
         app.processEvents()
         time.sleep(0.6)
 
-    icon_path = resource_path("assets/app/icon.ico")
+    icon_path = resource_path("assets/icon.ico")
 
     if os.path.exists(icon_path):
-        app.setWindowIcon(QIcon(str(icon_path)))
+        app.setWindowIcon(QIcon(icon_path))
 
     window = ChartGeneratorApp()
     window.show()
