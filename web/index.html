@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
+    />
+    <title>FNF Chart Generator Redux (a web version)</title>
+    <meta
+      name="description"
+      content="FNF Chart Generator Redux is a tool that lets you create a chart using just two audio files!"
+    />
+    <meta name="robots" content="notranslate" />
+    <meta
+      name="keywords"
+      content="fnf, friday night funkin, chart, generator, ogg, json"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="assets/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="shortcut icon" href="assets/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="C.G.R" />
+    <link rel="manifest" href="assets/site.webmanifest" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+    />
+  </head>
+  <body>
+    <div class="app-surface" id="app">
+      <div class="m3-header">
+        <span class="material-icons-round">music_note</span>
+        <h1>FNF Chart Generator Redux</h1>
+      </div>
+
+      <div class="m3-tabs" role="tablist">
+        <button class="m3-tab active" data-tab="basic">
+          <span class="material-icons-round">settings</span> Basic
+        </button>
+        <button class="m3-tab" data-tab="advanced">
+          <span class="material-icons-round">auto_awesome</span> AI Features
+        </button>
+      </div>
+
+      <div class="tab-panels">
+        <div class="tab-panel active" id="panel-basic">
+          <div class="m3-card">
+            <div class="m3-card-title">
+              <span class="material-icons-round">folder_open</span> Audio Files
+              <span class="m3-badge">Drop .ogg here</span>
+            </div>
+            <div class="m3-grid-2">
+              <div>
+                <div class="field">
+                  <label
+                    ><span class="material-icons-round">person</span> Player
+                    voices</label
+                  >
+                  <div class="file-label drop-zone" id="playerFileLabel">
+                    <span class="material-icons-round">audio_file</span> No
+                    player files loaded
+                  </div>
+                  <button class="m3-btn" id="loadPlayerBtn">
+                    <span class="material-icons-round">upload_file</span> Load
+                    .ogg
+                  </button>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label
+                    ><span class="material-icons-round">person_outline</span>
+                    Opponent voices</label
+                  >
+                  <div class="file-label drop-zone" id="opponentFileLabel">
+                    <span class="material-icons-round">audio_file</span> No
+                    opponent files
+                  </div>
+                  <button class="m3-btn" id="loadOpponentBtn">
+                    <span class="material-icons-round">upload_file</span> Load
+                    .ogg
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="m3-card">
+            <div class="m3-card-title">
+              <span class="material-icons-round">tune</span> Chart Settings
+            </div>
+            <div class="m3-grid-3">
+              <div class="field">
+                <label
+                  ><span class="material-icons-round">music_note</span> Song
+                  name</label
+                ><input
+                  class="m3-input"
+                  id="songName"
+                  placeholder="New Song"
+                  value="My Song"
+                />
+              </div>
+              <div class="field">
+                <label
+                  ><span class="material-icons-round">favorite</span> BPM</label
+                ><input
+                  class="m3-input"
+                  id="bpm"
+                  type="number"
+                  value="180"
+                  step="1"
+                  min="60"
+                  max="300"
+                />
+              </div>
+              <div class="field">
+                <label
+                  ><span class="material-icons-round">speed</span> Speed</label
+                ><input
+                  class="m3-input"
+                  id="speed"
+                  type="number"
+                  value="2.6"
+                  step="0.1"
+                  min="0.1"
+                  max="10"
+                />
+              </div>
+              <div class="field">
+                <label
+                  ><span class="material-icons-round">person</span> Player
+                  1</label
+                ><input class="m3-input" id="p1" value="bf" />
+              </div>
+              <div class="field">
+                <label
+                  ><span class="material-icons-round">person_outline</span>
+                  Player 2</label
+                ><input class="m3-input" id="p2" value="dad" />
+              </div>
+              <div class="field">
+                <label
+                  ><span class="material-icons-round">dangerous</span> Game
+                  Over</label
+                ><input class="m3-input" id="gameOver" value="bf-dead" />
+              </div>
+              <div class="field">
+                <label
+                  ><span class="material-icons-round">theater_comedy</span>
+                  Stage</label
+                ><input class="m3-input" id="stage" value="stage" />
+              </div>
+              <div class="field">
+                <label
+                  ><span class="material-icons-round">female</span> GF
+                  version</label
+                ><input class="m3-input" id="gfVer" value="gf" />
+              </div>
+              <div class="field">
+                <label
+                  ><span class="material-icons-round">schedule</span> Offset
+                  (ms)</label
+                ><input
+                  class="m3-input"
+                  id="offset"
+                  type="number"
+                  value="0"
+                  step="0.1"
+                />
+              </div>
+              <div class="field">
+                <label
+                  ><span class="material-icons-round">arrow_forward</span>
+                  Default sustain (ms)</label
+                ><input
+                  class="m3-input"
+                  id="defaultSustain"
+                  type="number"
+                  value="0"
+                  step="10"
+                  min="0"
+                />
+              </div>
+            </div>
+            <div class="flex mt-1">
+              <label class="m3-check"
+                ><input type="checkbox" id="preventConsecutive" /> Prevent
+                consecutive notes</label
+              >
+              <div
+                class="field"
+                style="
+                  flex-direction: row;
+                  align-items: center;
+                  gap: 8px;
+                  margin-left: 12px;
+                "
+              >
+                <label style="font-size: 13px">Max</label>
+                <input
+                  class="m3-input"
+                  id="maxConsecutive"
+                  type="number"
+                  value="1"
+                  min="0"
+                  max="3"
+                  style="width: 80px; padding: 8px 8px"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-advanced">
+          <div class="m3-card">
+            <div class="m3-card-title">
+              <span class="material-icons-round">graphic_eq</span> AI Sustain
+              Detection
+            </div>
+            <label class="m3-check" style="margin-bottom: 12px"
+              ><input type="checkbox" id="enableSustain" /> Enable AI
+              Sustain</label
+            >
+            <div class="m3-grid-3">
+              <div class="field">
+                <label>Min sustain (ms)</label
+                ><input
+                  class="m3-input"
+                  id="minSustain"
+                  type="number"
+                  value="150"
+                  step="5"
+                />
+              </div>
+              <div class="field">
+                <label>Threshold (dB)</label
+                ><input
+                  class="m3-input"
+                  id="sustainThresh"
+                  type="number"
+                  value="-30"
+                  step="0.5"
+                />
+              </div>
+              <div class="field">
+                <label>Release (dB)</label
+                ><input
+                  class="m3-input"
+                  id="sustainRelease"
+                  type="number"
+                  value="-28"
+                  step="0.5"
+                />
+              </div>
+              <div class="field">
+                <label>Extension (ms)</label
+                ><input
+                  class="m3-input"
+                  id="sustainExt"
+                  type="number"
+                  value="150"
+                  step="10"
+                />
+              </div>
+              <div class="field">
+                <label>Min silence (ms)</label
+                ><input
+                  class="m3-input"
+                  id="minSilence"
+                  type="number"
+                  value="50"
+                  step="5"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="m3-card">
+            <div class="m3-card-title">
+              <span class="material-icons-round">tune</span> AI Tonality
+              Detection
+            </div>
+            <label class="m3-check" style="margin-bottom: 12px"
+              ><input type="checkbox" id="enableTonality" /> Enable
+              Tonality</label
+            >
+            <div class="m3-grid-3">
+              <div class="field">
+                <label>Low C (Hz)</label
+                ><input
+                  class="m3-input"
+                  id="lowC"
+                  type="number"
+                  value="150"
+                  step="5"
+                />
+              </div>
+              <div class="field">
+                <label>Mid C (Hz)</label
+                ><input
+                  class="m3-input"
+                  id="midC"
+                  type="number"
+                  value="250"
+                  step="5"
+                />
+              </div>
+              <div class="field">
+                <label>High C (Hz)</label
+                ><input
+                  class="m3-input"
+                  id="highC"
+                  type="number"
+                  value="400"
+                  step="5"
+                />
+              </div>
+              <div class="field">
+                <label>Confidence</label
+                ><input
+                  class="m3-input"
+                  id="confidence"
+                  type="number"
+                  value="0.8"
+                  step="0.05"
+                  min="0.1"
+                  max="1"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-bar">
+        <div class="progress-wrap">
+          <div class="progress-label">
+            <span id="progressMsg">Ready</span><span id="progressPct">0%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+        <div class="status-area">
+          <span class="material-icons-round">info</span>
+          <span id="statusText">Load audio & generate</span>
+        </div>
+        <div class="action-row">
+          <button class="m3-btn primary" id="generateBtn">
+            <span class="material-icons-round">play_arrow</span> Generate
+          </button>
+          <button class="m3-btn secondary" id="saveBtn" disabled>
+            <span class="material-icons-round">save</span> Save
+          </button>
+          <button class="m3-btn danger" id="cancelBtn" disabled>
+            <span class="material-icons-round">close</span> Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
